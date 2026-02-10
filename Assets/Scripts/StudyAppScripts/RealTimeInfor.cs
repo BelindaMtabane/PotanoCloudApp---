@@ -10,11 +10,12 @@ public class RealTimeInfor : MonoBehaviour
     [SerializeField] TextMeshProUGUI studentTime;
     [SerializeField] TextMeshProUGUI studentDate;
     [SerializeField] TextMeshProUGUI studentZone;
-    public float studentTimeUpdate = 1f;
-    public float studentTimeIncreaser = 0f;
+    private float studentTimeUpdate = 1f;
+    private float studentTimeIncreaser = 0f;
 
     private void Update()
     {
+        
         //Check if a second has passed 
         studentTimeIncreaser += Time.deltaTime;
         //Check if it  is time to update the time

@@ -1,9 +1,7 @@
 using UnityEngine;
-using System;
-using System.Collections;
 using TMPro;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class NameSystem : MonoBehaviour
 {
@@ -53,6 +51,11 @@ public class NameSystem : MonoBehaviour
             nameInserter.SetActive(false); // Make the name input field and instructor invisible after saving the name
             nameInstructor.SetActive(false);    
             errorDisplay.text = ""; // Clear any error messages
+
+            if(EventSystem.current.currentSelectedGameObject == beginBTN)
+            {
+                nameDisplay.text = "Welcome " + name + "! Let us put in the work. "; // Display the saved name on the name display text
+            }
         }
     }
     public void LoadName()
@@ -65,17 +68,9 @@ public class NameSystem : MonoBehaviour
             nameInstructor.SetActive(false);
             // If a name is saved, retrieve it and display it on the name display text
             string savedName = PlayerPrefs.GetString(StudentNameKey);
-            nameDisplay.text = "Welcome Back , " + savedName + "! Let us put in the work. "; // Display the saved name on the name display text
+            nameDisplay.text = "Welcome " + savedName + "! Let us put in the work. "; // Display the saved name on the name display text
         }
-        else
-        {
-            NamerChecker(); // If there is no name saved, call the NamerChecker method to prompt the player to enter their name
-        }
-    }
-    public void NamerChecker()
-    {
-        //Check if there is a name saved in PlayerPrefs
-        if(!PlayerPrefs.HasKey(StudentNameKey))
+        else if (!PlayerPrefs.HasKey(StudentNameKey))
         {
             //Display ann error messgaee if there is no name saved
             nameInserter.SetActive(true);
@@ -83,6 +78,7 @@ public class NameSystem : MonoBehaviour
             errorDisplay.text = "Please enter your name First: ";
         }
     }
+    
     public void ClearName()
     {
         // Clear the saved name
@@ -95,5 +91,22 @@ public class NameSystem : MonoBehaviour
         nameInstructor.SetActive(true);
 
     }
+    // Call this from the button's OnClick event in the Inspector
+    public void OnBeginButtonClicked()
+    {
+        //Set to not react until th name is inserted
+        if (!PlayerPrefs.HasKey(StudentNameKey)) { return; }
+        else
+        {
+            //Set to Open the next scene
+            SceneManager.LoadScene("OpenPager");
+        }
+    }
+    public void ExitGame()
+    {
+        //Exit the entire game
+        Application.Quit();
+    }
+
 }
 
