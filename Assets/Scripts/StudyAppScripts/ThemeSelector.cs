@@ -10,8 +10,8 @@ public class QuestionFunction : MonoBehaviour
     [SerializeField] GameObject themeButton2;
     [SerializeField] GameObject themeButton3;
     [SerializeField] GameObject themeButton4;
-    [SerializeField] GameObject ladieBTN;    
-    [SerializeField] GameObject manBTN;
+    //[SerializeField] GameObject ladieBTN;    
+    //[SerializeField] GameObject manBTN;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
