@@ -1,0 +1,61 @@
+---
+description: Potano Cloud Unity project conventions — architecture, C# style, UI, and agent behavior
+alwaysApply: true
+---
+
+# Potano Cloud — Project Rules
+
+## Project
+
+- **Name:** Potano Cloud
+- **Engine:** Unity 6
+- **Language:** C#
+- **Architecture:** Manager-based (central managers own systems; avoid scattered singletons and FindObjectOfType)
+
+## Coding Style
+
+- Clean, readable code; follow SOLID
+- XML comments on public APIs (classes, methods, properties)
+- Use `#region` / `#endregion` to organize code
+- Prefer `[SerializeField]` private fields over public fields
+- No magic numbers — use named constants or ScriptableObject config
+- Use ScriptableObjects for shared data/config where appropriate
+- Prefer events / callbacks over `FindObjectOfType` / tight coupling
+- Use TextMeshPro for all UI text
+
+## UI
+
+- Modern cloud theme (soft skies, clouds, light/airy palette; match existing scenes)
+
+## Naming
+
+- **PascalCase** for classes, methods, properties, events
+- **camelCase** for local variables and private fields (e.g. `timerDuration`)
+
+## Agent Behavior
+
+- Always explain generated code (what it does and how to wire it in Unity)
+- **Never modify existing scripts unless the user explicitly asks**
+- Prefer scripts under **250 lines**; split into managers/helpers if growing larger
+
+## C# Shape (example)
+
+```csharp
+/// <summary>
+/// Owns study session timing and raises events for UI.
+/// </summary>
+public class TimerManager : MonoBehaviour
+{
+    #region Constants
+    private const float DefaultDurationSeconds = 1500f;
+    #endregion
+
+    #region Serialized Fields
+    [SerializeField] private float timerDuration = DefaultDurationSeconds;
+    #endregion
+
+    #region Events
+    public event System.Action OnTimerCompleted;
+    #endregion
+}
+```
